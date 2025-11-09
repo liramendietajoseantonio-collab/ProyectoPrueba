@@ -28,7 +28,7 @@ public class control extends HttpServlet {
         // 3. Usamos un switch para decidir qué hacer
         switch (accion) {
             
-            case "Alta Alumno":
+            case "Alta":
                 // 4. Llenamos el bean con los datos del formulario
                 p.setMatricula(request.getParameter("matricula"));
                 p.setNombre(request.getParameter("nombre"));
