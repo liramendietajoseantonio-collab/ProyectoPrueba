@@ -102,7 +102,7 @@ public class Persona {
             int filas = ps.executeUpdate();
             
             if (filas > 0) {
-                respuesta = "Persona dada de baja (lógica) correctamente.";
+                respuesta = "Persona dada de baja logicamente.";
             } else {
                 respuesta = "No se encontró la matrícula para la baja.";
             }

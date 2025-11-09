@@ -39,21 +39,19 @@ public class control extends HttpServlet {
                 p.alta();
                 break;
 
-            case "Baja Alumno": // Este sería el value del botón en 'bajal.html'
+            case "Eliminar Persona": // Este sería el value del botón en 'bajal.html'
                 p.setMatricula(request.getParameter("matricula"));
-                
-                // 6. Le pedimos al bean que aplique la baja lógica
                 p.bajaLogica();
                 break;
 
-            case "Consultar Alumno": // Value del botón en 'consulta.html'
+            case "Consultar Persona": // Value del botón en 'consulta.html'
                 p.setMatricula(request.getParameter("matricula"));
                 
                 // 7. Le pedimos al bean que busque los datos
                 p.consulta();
                 break;
 
-            case "Modificar Alumno": // Value del botón en 'modifica.html'
+            case "Modificar Persona": // Value del botón en 'modifica.html'
                 p.setMatricula(request.getParameter("matricula"));
                 p.setNombre(request.getParameter("nombre"));
                 p.setApellido(request.getParameter("apellido"));

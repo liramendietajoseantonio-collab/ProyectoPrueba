@@ -93,7 +93,7 @@ public class LibroControl extends HttpServlet {
                 l.alta();
                 break;
                 
-            case "Baja Libro":
+            case "Eliminar Libro":
                 // 8. Llena el bean con los datos de 'bajal_libro.html'
                 l.setId_libro(Integer.parseInt(request.getParameter("id_libro")));
                 

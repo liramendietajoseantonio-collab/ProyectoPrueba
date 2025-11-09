@@ -120,9 +120,9 @@ public class Libro {
             int filas = ps.executeUpdate();
             
             if (filas > 0) {
-                respuesta = "Libro dado de baja (lógica) correctamente.";
+                respuesta = "Libro dado de baja logicamente.";
             } else {
-                respuesta = "No se encontró el ID del libro para la baja.";
+                respuesta = "No se encontró el ID del libro para elminar.";
             }
             
         } catch (Exception e) {
