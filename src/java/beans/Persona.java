@@ -1,0 +1,173 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package beans;
+
+/**
+ *
+ * @author linkl
+ */
+
+// Importamos todo lo necesario de SQL
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+// Asumimos que tienes tu clase Conexion.java en este mismo paquete 'beans'
+// import beans.Conexion; 
+
+public class Persona {
+
+    // --- Atributos de la tabla Personas ---
+    private String matricula;
+    private String nombre;
+    private String apellido;
+    private String tipo;
+    private String estado;
+    
+    // --- Atributo para la respuesta (como en tu ejemplo) ---
+    private String respuesta;
+
+    // --- Getters y Setters ---
+    
+    public String getMatricula() { return matricula; }
+    public void setMatricula(String matricula) { this.matricula = matricula; }
+    
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    
+    public String getApellido() { return apellido; }
+    public void setApellido(String apellido) { this.apellido = apellido; }
+    
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+    
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
+    
+    public String getRespuesta() { return respuesta; }
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;}
+    // No creamos un setRespuesta, se asigna internamente en los métodos.
+
+
+    // ===================================
+    // === MÉTODOS CRUD (Adaptados a tu BD)
+    // ===================================
+
+    /**
+     * Da de alta una nueva Persona.
+     * Asigna 'Habilitado' por defecto.
+     */
+    public void alta() {
+        // Usamos try-with-resources para cerrar la conexión automáticamente
+        try (Connection cn = new Conexion().conectar()) { // Asumiendo que se llama así tu clase
+            
+            String sql = "INSERT INTO Personas (Matricula, Nombre, Apellido, Tipo, Estado) VALUES (?, ?, ?, ?, 'Habilitado')";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            
+            ps.setString(1, this.matricula);
+            ps.setString(2, this.nombre);
+            ps.setString(3, this.apellido);
+            ps.setString(4, this.tipo);
+            
+            ps.executeUpdate();
+            
+            respuesta = "Persona registrada exitosamente.";
+            
+        } catch (SQLException e) {
+            respuesta = "Error en alta: " + e.getMessage();
+            e.printStackTrace();
+        } catch (Exception e) {
+            respuesta = "Error de conexión: " + e.getMessage();
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Ejecuta una BAJA LÓGICA (UPDATE), no un DELETE.
+     * Esto cumple con tu rúbrica.
+     */
+    public void bajaLogica() {
+        try (Connection cn = new Conexion().conectar()) {
+            
+            String sql = "UPDATE Personas SET BajaLogica = 1 WHERE Matricula = ?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            
+            ps.setString(1, this.matricula);
+            
+            int filas = ps.executeUpdate();
+            
+            if (filas > 0) {
+                respuesta = "Persona dada de baja (lógica) correctamente.";
+            } else {
+                respuesta = "No se encontró la matrícula para la baja.";
+            }
+            
+        } catch (Exception e) {
+            respuesta = "Error en baja lógica: " + e.getMessage();
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Consulta una Persona por su Matrícula.
+     * Solo muestra si BajaLogica es 0.
+     */
+    public void consulta() {
+        try (Connection cn = new Conexion().conectar()) {
+            
+            String sql = "SELECT * FROM Personas WHERE Matricula = ? AND BajaLogica = 0";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            
+            ps.setString(1, this.matricula);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                // Construimos el string de respuesta (como en tu ejemplo)
+                respuesta = "<b>Matrícula:</b> " + rs.getString("Matricula") +
+                            "<br><b>Nombre:</b> " + rs.getString("Nombre") + " " + rs.getString("Apellido") +
+                            "<br><b>Tipo:</b> " + rs.getString("Tipo") +
+                            "<br><b>Estado:</b> " + rs.getString("Estado");
+            } else {
+                respuesta = "No se encontró el registro o está dado de baja.";
+            }
+            
+        } catch (Exception e) {
+            respuesta = "Error en consulta: " + e.getMessage();
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Modifica los datos de una Persona usando su Matrícula.
+     */
+    public void modifica() {
+        try (Connection cn = new  Conexion().conectar()) {
+            
+            String sql = "UPDATE Personas SET Nombre = ?, Apellido = ?, Tipo = ? WHERE Matricula = ?";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            
+            ps.setString(1, this.nombre);
+            ps.setString(2, this.apellido);
+            ps.setString(3, this.tipo);
+            ps.setString(4, this.matricula); // La matrícula es el WHERE
+            
+            int filas = ps.executeUpdate();
+            
+            if (filas > 0) {
+                respuesta = "Persona actualizada correctamente.";
+            } else {
+                respuesta = "No se encontró la matrícula para modificar.";
+            }
+            
+        } catch (Exception e) {
+            respuesta = "Error en modificación: " + e.getMessage();
+            e.printStackTrace();
+        }
+    }
+}
