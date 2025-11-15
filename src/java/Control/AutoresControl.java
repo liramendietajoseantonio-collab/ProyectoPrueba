@@ -38,8 +38,6 @@ public class AutoresControl extends HttpServlet {
                 p.setNombre(request.getParameter("nombre"));
                 p.setApellido(request.getParameter("apellido"));
                 p.setNacionalidad(request.getParameter("nacionalidad"));
-                p.setBajaLogica(request.getParameter("BajaLogica"));
-                
                 p.alta();
                 break;
 

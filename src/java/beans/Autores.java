@@ -72,14 +72,12 @@ public class Autores {
        
         try (Connection cn = new Conexion().conectar()) { 
             
-            String sql = "INSERT INTO Autores (ID_Autor, Nombre, Apellido, Nacionalidad, BajaLogica) VALUES (?, ?, ?, ?, '1')";
+            String sql = "INSERT INTO Autores (ID_Autor, Nombre, Apellido, Nacionalidad) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = cn.prepareStatement(sql);
-            
-            ps.setInt(1, this.id);
-            ps.setString(2, this.nombre);
-            ps.setString(3, this.apellido);
-            ps.setString(4, this.nacionalidad);
-            ps.setString(5, this.BajaLogica);
+        ps.setInt(1, this.id);
+        ps.setString(2, this.nombre);
+        ps.setString(3, this.apellido);
+        ps.setString(4, this.nacionalidad);
             ps.executeUpdate();
             
             respuesta = "Persona registrada exitosamente.";
