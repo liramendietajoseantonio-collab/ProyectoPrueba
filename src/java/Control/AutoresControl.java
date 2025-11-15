@@ -4,14 +4,13 @@
  */
 package Control;
 
-import beans.Persona;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import beans.Autores;
 
 /**
  *
@@ -28,39 +27,39 @@ public class AutoresControl extends HttpServlet {
         String accion = request.getParameter("boton");
         
         
-        Persona p = new Persona();
+        Autores p = new Autores();
         
   
         switch (accion) {
             
             case "Alta Autor":
-                // 4. Llenamos el bean con los datos del formulario
-                p.setId(request.getParameter("id"));
+               
+                p.setId(Integer.parseInt(request.getParameter("ID_Autor")));
                 p.setNombre(request.getParameter("nombre"));
                 p.setApellido(request.getParameter("apellido"));
-                p.setTipo(request.getParameter("tipo"));
+                p.setNacionalidad(request.getParameter("nacionalidad"));
                 
-                // 5. Le pedimos al bean que se guarde a sí mismo
+                
                 p.alta();
                 break;
 
-            case "Eliminar Persona": // Este sería el value del botón en 'bajal.html'
-                p.setMatricula(request.getParameter("matricula"));
+            case "Eliminar Autor": // Este sería el value del botón en 'bajal.html'
+                p.setId(Integer.parseInt(request.getParameter("ID_autor")));
                 p.bajaLogica();
                 break;
 
             case "Consultar Persona": // Value del botón en 'consulta.html'
-                p.setMatricula(request.getParameter("matricula"));
+                p.setId(Integer.parseInt(request.getParameter("ID_autor")));
                 
                 // 7. Le pedimos al bean que busque los datos
                 p.consulta();
                 break;
 
             case "Modificar Persona": // Value del botón en 'modifica.html'
-                p.setMatricula(request.getParameter("matricula"));
+                p.setId(Integer.parseInt(request.getParameter("ID_autor")));
                 p.setNombre(request.getParameter("nombre"));
                 p.setApellido(request.getParameter("apellido"));
-                p.setTipo(request.getParameter("tipo"));
+                p.setNacionalidad(request.getParameter("nacionalidad"));
                 
                 // 8. Le pedimos al bean que se actualice
                 p.modifica();

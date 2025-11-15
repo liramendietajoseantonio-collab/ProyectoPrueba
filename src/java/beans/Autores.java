@@ -78,9 +78,8 @@ public class Autores {
             ps.setInt(1, this.id);
             ps.setString(2, this.nombre);
             ps.setString(3, this.apellido);
-            ps.setString(3, this.nacionalidad);
-           
-            
+            ps.setString(4, this.nacionalidad);
+            ps.setString(5,this.respuesta);
             ps.executeUpdate();
             
             respuesta = "Persona registrada exitosamente.";
@@ -92,6 +91,19 @@ public class Autores {
             respuesta = "Error de conexión: " + e.getMessage();
             e.printStackTrace();
         }
+    }
+    
+    public void bajaLogica(){
+        
+    }
+    
+    public void consulta (){
+        
+    }
+    
+    public void modifica(){
+        
+        
     }
 
     
