@@ -16,12 +16,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// Asumimos que tienes tu clase Conexion.java en este mismo paquete 'beans'
-// import beans.Conexion; 
+
 
 public class Persona {
 
-    // --- Atributos de la tabla Personas ---
+    
     private String matricula;
     private String nombre;
     private String apellido;
