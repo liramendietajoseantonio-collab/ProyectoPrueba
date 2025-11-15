@@ -18,7 +18,7 @@ public class Autores {
     private String apellido;
     private String respuesta;
     private String nacionalidad;
-    private String estado;
+    private String BajaLogica;
 
     public int getId() {
         return id;
@@ -40,8 +40,8 @@ public class Autores {
         return nacionalidad;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getBajaLogica() {
+        return BajaLogica;
     }
 
     public void setId(int id) {
@@ -64,22 +64,22 @@ public class Autores {
         this.nacionalidad = nacionalidad;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setBajaLogica(String BajaLogica) {
+        this.BajaLogica = BajaLogica;
     }
     
     public void alta() {
        
         try (Connection cn = new Conexion().conectar()) { 
             
-            String sql = "INSERT INTO Autores (ID_Autor, Nombre, Apellido, Nacionalidad, Estado) VALUES (?, ?, ?, ?, ? 'Habilitado')";
+            String sql = "INSERT INTO Autores (ID_Autor, Nombre, Apellido, Nacionalidad, BajaLogica) VALUES (?, ?, ?, ?, '1')";
             PreparedStatement ps = cn.prepareStatement(sql);
             
             ps.setInt(1, this.id);
             ps.setString(2, this.nombre);
             ps.setString(3, this.apellido);
             ps.setString(4, this.nacionalidad);
-            ps.setString(5,this.respuesta);
+            ps.setString(5, this.BajaLogica);
             ps.executeUpdate();
             
             respuesta = "Persona registrada exitosamente.";
