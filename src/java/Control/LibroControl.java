@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import beans.Libro;
 
+
 /**
  *
  * @author linkl
@@ -74,24 +75,27 @@ public class LibroControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 3. Obtiene la acción del botón (ej. value="Alta Libro")
+        
         String accion = request.getParameter("boton");
         
-        // 4. Crea el bean de Libro
+       
         Libro l = new Libro();
-        
-        // 5. Un switch para cada botón
+       
+       
         switch (accion) {
             
-            case "Alta Libro":
-                // 6. Llena el bean con los datos del formulario 'alta_libro.html'
-                l.setTitulo(request.getParameter("titulo"));
-                l.setIsbn(request.getParameter("isbn"));
-                l.setStock_total(Integer.parseInt(request.getParameter("stock_total")));
-                
-                // 7. Llama al método 'alta()' del bean
-                l.alta();
-                break;
+           case "Alta Libro":
+           // Capturar datos del libro
+            l.setTitulo(request.getParameter("titulo"));
+            l.setIsbn(request.getParameter("isbn"));
+            l.setId_autor(Integer.parseInt(request.getParameter("id_autor")));
+            l.setId_editorial(Integer.parseInt(request.getParameter("id_editorial")));
+            l.setStock_total(Integer.parseInt(request.getParameter("stock_total")));
+            l.setStock_disponible(Integer.parseInt(request.getParameter("stock_disponible")));
+    
+             
+            l.alta();
+            break;
                 
             case "Eliminar Libro":
                 // 8. Llena el bean con los datos de 'bajal_libro.html'
@@ -101,22 +105,24 @@ public class LibroControl extends HttpServlet {
                 l.bajaLogica();
                 break;
                 
-            case "Consultar Libros": // Asumiendo que tu 'consulta_libro.html' pide un ID
+            case "Consultar Libro": // Asumiendo que tu 'consulta_libro.html' pide un ID
                 l.setId_libro(Integer.parseInt(request.getParameter("id_libro")));
                 
                 l.consulta();
                 break;
                 
             case "Modificar Libro":
-                // 10. Llena el bean con todos los datos de 'modifica_libro.html'
-                l.setId_libro(Integer.parseInt(request.getParameter("id_libro")));
-                l.setTitulo(request.getParameter("titulo"));
-                l.setIsbn(request.getParameter("isbn"));
-                l.setStock_total(Integer.parseInt(request.getParameter("stock_total")));
-                l.setStock_disponible(Integer.parseInt(request.getParameter("stock_disponible")));
-                
-                l.modifica();
-                break;
+    
+            l.setId_libro(Integer.parseInt(request.getParameter("id_libro")));
+            l.setTitulo(request.getParameter("titulo"));
+            l.setIsbn(request.getParameter("isbn"));
+            l.setId_autor(Integer.parseInt(request.getParameter("id_autor")));
+            l.setId_editorial(Integer.parseInt(request.getParameter("id_editorial")));
+            l.setStock_total(Integer.parseInt(request.getParameter("stock_total")));
+            l.setStock_disponible(Integer.parseInt(request.getParameter("stock_disponible")));
+     
+            l.modifica();
+            break;
                 
             default:
                 l.setRespuesta("Error: Acción desconocida en LibroControl.");

@@ -75,10 +75,10 @@ public class Autores {
             
             String sql = "INSERT INTO Autores (ID_Autor, Nombre, Apellido, Nacionalidad) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = cn.prepareStatement(sql);
-        ps.setInt(1, this.id);
-        ps.setString(2, this.nombre);
-        ps.setString(3, this.apellido);
-        ps.setString(4, this.nacionalidad);
+            ps.setInt(1, this.id);
+            ps.setString(2, this.nombre);
+            ps.setString(3, this.apellido);
+            ps.setString(4, this.nacionalidad);
             ps.executeUpdate();
             
             respuesta = "Autor registrado con exito";

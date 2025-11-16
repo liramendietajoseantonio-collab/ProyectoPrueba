@@ -54,10 +54,11 @@ public class Editorial {
     public void alta(){
         try (Connection cn = new Conexion().conectar()) { 
             
-            String sql = "INSERT INTO Editoriales (Nombre, pais) VALUES (?, ?)";
+            String sql = "INSERT INTO Editoriales (ID_Editorial,Nombre, pais) VALUES (?, ?, ?)";
             PreparedStatement ps = cn.prepareStatement(sql);
-            ps.setString(1, this.nombre);
-            ps.setString(2, this.pais);
+            ps.setInt(1, this.id);
+            ps.setString(2, this.nombre);
+            ps.setString(3, this.pais);
             
             ps.executeUpdate();
             

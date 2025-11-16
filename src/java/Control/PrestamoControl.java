@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Date;
 
 /**
  *
@@ -74,20 +75,24 @@ public class PrestamoControl extends HttpServlet {
             throws ServletException, IOException {
         String accion = request.getParameter("boton");
         
-        // 4. Crea el bean de Prestamo
+        
         Prestamo p = new Prestamo();
 
-        // 5. Un switch para cada botón
+        
         switch (accion) {
             
-            case "Solicitar Prestamo":
-                // 6. Llena el bean con datos de 'alta_prestamo.html'
-                p.setMatricula(request.getParameter("matricula"));
-                p.setId_libro(Integer.parseInt(request.getParameter("id_libro")));
-                
-                // 7. Llama al método 'alta()' (que hace la transacción)
-                p.alta();
-                break;
+            case "Registrar Prestamo":
+   
+            p.setMatricula(request.getParameter("matricula"));
+            p.setId_libro(Integer.parseInt(request.getParameter("id_libro")));
+            String fechaStr = request.getParameter("fecha_prestamo");
+            java.sql.Date fechaPrestamo = java.sql.Date.valueOf(fechaStr);
+            p.setFecha_prestamo(fechaPrestamo);
+    
+             // Llamar al método alta()
+             p.alta();
+            break;
+
 
             case "Devolver Prestamo":
                 // 8. Llena el bean con datos de 'modifica_prestamo.html'

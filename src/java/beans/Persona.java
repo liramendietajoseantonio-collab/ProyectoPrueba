@@ -57,8 +57,8 @@ public class Persona {
      * Asigna 'Habilitado' por defecto.
      */
     public void alta() {
-        // Usamos try-with-resources para cerrar la conexión automáticamente
-        try (Connection cn = new Conexion().conectar()) { // Asumiendo que se llama así tu clase
+       
+        try (Connection cn = new Conexion().conectar()) { 
             
             String sql = "INSERT INTO Personas (Matricula, Nombre, Apellido, Tipo, Estado) VALUES (?, ?, ?, ?, 'Habilitado')";
             PreparedStatement ps = cn.prepareStatement(sql);
@@ -96,7 +96,7 @@ public class Persona {
             int filas = ps.executeUpdate();
             
             if (filas > 0) {
-                respuesta = "Persona dada de baja logicamente.";
+                respuesta = "Persona dada de baja logicamente. Su estado ha cambiado dentro de la base de datos";
             } else {
                 respuesta = "No se encontró la matrícula para la baja.";
             }

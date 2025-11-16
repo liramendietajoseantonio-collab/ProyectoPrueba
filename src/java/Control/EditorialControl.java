@@ -41,7 +41,7 @@ public class EditorialControl extends HttpServlet {
         switch (accion) {
             
             case "Alta Editorial":
-           
+                p.setId(Integer.parseInt(request.getParameter("ID_Editorial")));
                 p.setNombre(request.getParameter("nombre"));
                 p.setPais(request.getParameter("pais"));
                 p.alta();
