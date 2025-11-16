@@ -86,18 +86,79 @@ public class Prestamo {
     }
     }
 
-    public void baja(){
-     
-     } 
-    
-    
-    public void consulta(){
+   public void bajaLogica(){
+    try (Connection cn = new Conexion().conectar()) {
         
-    }
-    
-    public void modifica(){
+        String sql = "UPDATE Prestamos SET Estado = 'Cancelado' WHERE ID_Prestamo = ?";
+        PreparedStatement ps = cn.prepareStatement(sql);
         
+        ps.setInt(1, this.id_prestamo);
+        
+        int filas = ps.executeUpdate();
+        
+        if (filas > 0) {
+            respuesta = "Prestamo dado de baja logicamente; ha cambiado su estado dentro de la base de datos.";
+        } else {
+            respuesta = "No se encontró el ID para la baja.";
+        }
+        
+    } catch (Exception e) {
+        respuesta = "Error en baja lógica: " + e.getMessage();
+        e.printStackTrace();
     }
+}
+
+    
+    
+    public void consulta() {
+    try (Connection cn = new Conexion().conectar()) {
+        
+        String sql = "SELECT * FROM Prestamos WHERE ID_Prestamo = ? AND Estado = 'Activo'";
+        PreparedStatement ps = cn.prepareStatement(sql);
+        
+        ps.setInt(1, this.id_prestamo);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            respuesta = "<b>ID Préstamo:</b> " + rs.getInt("ID_Prestamo") +
+                        "<br><b>Matrícula (Persona):</b> " + rs.getString("Matricula") +
+                        "<br><b>ID Libro:</b> " + rs.getInt("ID_Libro") +
+                        "<br><b>Fecha Préstamo:</b> " + rs.getDate("Fecha_Prestamo") +
+                        "<br><b>Fecha Devolución Esperada:</b> " + rs.getDate("Fecha_Devolucion_Esperada") +
+                        "<br><b>Estado:</b> " + rs.getString("Estado");
+        } else {
+            respuesta = "No se encontró el préstamo o no está activo.";
+        }
+        
+    } catch (Exception e) {
+        respuesta = "Error en consulta: " + e.getMessage();
+        e.printStackTrace();
+    }
+}
+
+    
+    public void modifica() {
+    try (Connection cn = new Conexion().conectar()) {
+        
+        String sql = "UPDATE Prestamos SET Estado = 'Devuelto', Fecha_Devolucion_Real = GETDATE() WHERE ID_Prestamo = ?";
+        PreparedStatement ps = cn.prepareStatement(sql);
+        
+        ps.setInt(1, this.id_prestamo);
+        
+        int filas = ps.executeUpdate();
+        
+        if (filas > 0) {
+            respuesta = "Prestamo devuelto exitosamente";
+        } else {
+            respuesta = "No se encontró el ID para modificar.";
+        }
+        
+    } catch (Exception e) {
+        respuesta = "Error en modificación: " + e.getMessage();
+        e.printStackTrace();
+    }
+}
 }
 
    

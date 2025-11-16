@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Resultado de la Operación</h1>
+        <h1> Resultado de la Operación </h1>
     
     <hr>
 

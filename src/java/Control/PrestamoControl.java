@@ -89,23 +89,28 @@ public class PrestamoControl extends HttpServlet {
             java.sql.Date fechaPrestamo = java.sql.Date.valueOf(fechaStr);
             p.setFecha_prestamo(fechaPrestamo);
     
-             // Llamar al método alta()
-             p.alta();
+            p.alta();
             break;
 
 
-            case "Devolver Prestamo":
-                // 8. Llena el bean con datos de 'modifica_prestamo.html'
-                p.setId_prestamo(Integer.parseInt(request.getParameter("id_prestamo")));
+           case "Devolver Prestamo":
+           p.setId_prestamo(Integer.parseInt(request.getParameter("id_prestamo")));
+           p.modifica();
+           break;
                 
-                // 9. Llama al método 'modifica()' (que devuelve y checa multas)
-                p.modifica();
-                break;
+          
+                
+           case "Baja Prestamo":
+           p.setId_prestamo(Integer.parseInt(request.getParameter("id_prestamo")));
+           p.bajaLogica();
+          break;
 
-            case "Consultar Prestamos Activos":
-                // 10. No necesita parámetros, solo llama a la consulta
-                p.consulta();
-                break;
+
+          case "Consultar Prestamo":
+          p.setId_prestamo(Integer.parseInt(request.getParameter("id_prestamo")));
+          p.consulta();
+          break;
+               
                 
             default:
                 p.setRespuesta("Error: Acción desconocida en PrestamoControl.");
