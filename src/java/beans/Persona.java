@@ -50,12 +50,7 @@ public class Persona {
     public String getRespuesta() { return respuesta; }
     public void setRespuesta(String respuesta) {
         this.respuesta = respuesta;}
-    // No creamos un setRespuesta, se asigna internamente en los métodos.
-
-
-    // ===================================
-    // === MÉTODOS CRUD (Adaptados a tu BD)
-    // ===================================
+    
 
     /**
      * Da de alta una nueva Persona.

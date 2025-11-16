@@ -13,37 +13,11 @@ import java.sql.SQLException;
  *
  * @author garri
  */
-public class Autores {
+public class Editorial {
     private int id;
     private String nombre;
-    private String apellido;
+    private String pais;
     private String respuesta;
-    private String nacionalidad;
-    private String BajaLogica;
-
-    public int getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public String getRespuesta() {
-        return respuesta;
-    }
-
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public String getBajaLogica() {
-        return BajaLogica;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -53,35 +27,41 @@ public class Autores {
         this.nombre = nombre;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public void setRespuesta(String respuesta) {
         this.respuesta = respuesta;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public int getId() {
+        return id;
     }
 
-    public void setBajaLogica(String BajaLogica) {
-        this.BajaLogica = BajaLogica;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getRespuesta() {
+        return respuesta;
     }
     
-    public void alta() {
-       
+    public void alta(){
         try (Connection cn = new Conexion().conectar()) { 
             
-            String sql = "INSERT INTO Autores (ID_Autor, Nombre, Apellido, Nacionalidad) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Editoriales (Nombre, pais) VALUES (?, ?)";
             PreparedStatement ps = cn.prepareStatement(sql);
-        ps.setInt(1, this.id);
-        ps.setString(2, this.nombre);
-        ps.setString(3, this.apellido);
-        ps.setString(4, this.nacionalidad);
+            ps.setString(1, this.nombre);
+            ps.setString(2, this.pais);
+            
             ps.executeUpdate();
             
-            respuesta = "Autor registrado con exito";
+            respuesta = "Editorial registrada con exito";
             
         } catch (SQLException e) {
             respuesta = "Error en alta: " + e.getMessage();
@@ -90,12 +70,14 @@ public class Autores {
             respuesta = "Error de conexión: " + e.getMessage();
             e.printStackTrace();
         }
+        
+        
     }
     
     public void bajaLogica(){
-    try (Connection cn = new Conexion().conectar()) {
+        try (Connection cn = new Conexion().conectar()) {
             
-            String sql = "UPDATE Autores SET BajaLogica = 1 WHERE ID_autor = ?";
+            String sql = "UPDATE Editoriales SET BajaLogica = 1 WHERE ID_Editorial = ?";
             PreparedStatement ps = cn.prepareStatement(sql);
             
             ps.setInt(1, this.id);
@@ -103,7 +85,7 @@ public class Autores {
             int filas = ps.executeUpdate();
             
             if (filas > 0) {
-                respuesta = "Autor dado de baja logicamente; ha cambiado su estado dentro de la base de datos.";
+                respuesta = "Editorial dada de baja logicamente; ha cambiado su estado dentro de la base de datos.";
             } else {
                 respuesta = "No se encontró el ID para la baja.";
             }
@@ -112,14 +94,14 @@ public class Autores {
             respuesta = "Error en baja lógica: " + e.getMessage();
             e.printStackTrace();
         }
-        
-        
+    
     }
     
-    public void consulta (){
+    
+    public void consulta(){ 
         try (Connection cn = new Conexion().conectar()) {
             
-            String sql = "SELECT * FROM Autores WHERE ID_Autor = ? AND BajaLogica = 0";
+            String sql = "SELECT * FROM Editoriales WHERE ID_Editorial = ? AND BajaLogica = 0";
             PreparedStatement ps = cn.prepareStatement(sql);
             
             ps.setInt(1, this.id);
@@ -128,13 +110,13 @@ public class Autores {
             
             if (rs.next()) {
                 
-            respuesta = "<b>ID:</b> " + rs.getInt("ID_Autor") +
+            respuesta = "<b>ID:</b> " + rs.getInt("ID_Editorial") +
                         "<br><b>Nombre:</b> " + rs.getString("nombre") + 
-                        "<br><b>Apellido:</b> " + rs.getString("apellido") +
-                        "<br><b>Nacionalidad:</b> " + rs.getString("nacionalidad");
+                        "<br><b>Pais:</b> " + rs.getString("pais");
+                      
                            
             } else {
-            respuesta = "No se encontró el registro del autor, es probable que su estado sea baja.";
+            respuesta = "No se encontró el registro de la editorial, es probable que su estado sea baja.";
             }
             
         } catch (Exception e) {
@@ -148,18 +130,17 @@ public class Autores {
     public void modifica(){
          try (Connection cn = new  Conexion().conectar()) {
             
-            String sql = "UPDATE Autores SET Nombre = ?, Apellido = ?, Nacionalidad = ? WHERE ID_Autor = ?";
+            String sql = "UPDATE Editoriales SET Nombre = ?, Pais = ? WHERE ID_Editorial = ?";
             PreparedStatement ps = cn.prepareStatement(sql);
             
             ps.setString(1, this.nombre);
-            ps.setString(2, this.apellido);
-            ps.setString(3, this.nacionalidad);
-            ps.setInt(4, this.id); 
+            ps.setString(2, this.pais);
+            ps.setInt(3, this.id); 
             
             int filas = ps.executeUpdate();
             
             if (filas > 0) {
-                respuesta = "Datos del autor modificados exitosamente";
+                respuesta = "Datos de la Editorial modificados exitosamente";
             } else {
                 respuesta = "No se encontró el ID para modificar.";
             }
@@ -173,6 +154,3 @@ public class Autores {
         
         
     }
-
-    
-

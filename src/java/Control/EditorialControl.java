@@ -4,62 +4,64 @@
  */
 package Control;
 
+import beans.Editorial;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import beans.Autores;
 
 /**
  *
  * @author garri
  */
-@WebServlet(name = "AutoresControl", urlPatterns = {"/AutoresControl"})
-public class AutoresControl extends HttpServlet {
+@WebServlet(name = "Editorial", urlPatterns = {"/Editorial"})
+public class EditorialControl extends HttpServlet {
 
-    
- public void doPost(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         
         String accion = request.getParameter("boton");
         
         
-        Autores p = new Autores();
+       Editorial p = new Editorial();
         
   
         switch (accion) {
             
-            case "Alta Autor":
-               
-                p.setId(Integer.parseInt(request.getParameter("ID_Autor")));
+            case "Alta Editorial":
+           
                 p.setNombre(request.getParameter("nombre"));
-                p.setApellido(request.getParameter("apellido"));
-                p.setNacionalidad(request.getParameter("nacionalidad"));
+                p.setPais(request.getParameter("pais"));
                 p.alta();
                 break;
 
-            case "Eliminar Autor": // Este sería el value del botón en 'bajal.html'
-                p.setId(Integer.parseInt(request.getParameter("ID_Autor")));
+            case "Eliminar Editorial": 
+                p.setId(Integer.parseInt(request.getParameter("ID_Editorial")));
                 p.bajaLogica();
                 break;
 
-            case "Consultar Autor": // Value del botón en 'consulta.html'
-                p.setId(Integer.parseInt(request.getParameter("ID_Autor")));
-                
-              
+            case "Consultar Editorial": 
+                p.setId(Integer.parseInt(request.getParameter("ID_Editorial")));
                 p.consulta();
                 break;
 
-            case "Modificar Autor": 
-                p.setId(Integer.parseInt(request.getParameter("ID_Autor")));
+            case "Modificar Editorial": 
+                p.setId(Integer.parseInt(request.getParameter("ID_Editorial")));
                 p.setNombre(request.getParameter("nombre"));
-                p.setApellido(request.getParameter("apellido"));
-                p.setNacionalidad(request.getParameter("nacionalidad"));
-                
-               
+                p.setPais(request.getParameter("pais"));
+            
                 p.modifica();
                 break;
                 
