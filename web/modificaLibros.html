@@ -11,13 +11,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     </head>
     <body>
         <form action="LibroControl" method="post"> 
-            <h1> MODIFICAR LOS DATOS DE UN LIBRO </h1>
-            ID <input type="text" name="id_libro" required><br><br>  
-            Título: <input type="text" name="titulo" required><br><br>
-            ISBN: <input type="text" name="isbn" required><br><br>
-            Stock Total: <input type="number" name="stock_total" required><br><br>
-            Stock Disponible: <input type="text" name="stock_disponible" required><br><br>
-            <input type="submit" name="boton" value="Modificar Libro" />
+            <h1>Modificar Libro (Paso 1: Buscar)</h1>
+        
+        ID del Libro a modificar: <input type="number" name="id_libro" required><br><br>
+        
+        <input type="submit" name="boton" value="Buscar Libro para Modificar">
         </form>
     </body>
 </html>
